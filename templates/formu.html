@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+{% block body%}
+{% with mensajes = get_flashed_messages()  %}
+{% if mensajes %}
+{% for mensaje in mensajes %}
+    <div class="alert alert-dismissible alert-success">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>{{ mensaje }}</strong>.
+      </div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<form action="/agregar" method="POST">
+    <div class="container text-center mt-5  ">
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-6 col-lg-6 ">
+            
+  <div class="card text-white bg-info mb-3" style="max-width: 30rem;">
+    <div class="form-group m-3">
+        <label class="col-form-label col-form-label-lg  " for="inputLarge">Agregar Productos</label>
+        <input class="form-control form-control-lg mt-5" type="text" placeholder="Nombre" id="inputLarge" name="nombre" placeholder="Nombre">
+        <input class="form-control form-control-lg mt-5" type="text" placeholder="Cantidad" id="inputLarge" name="cantidad" placeholder="Cantidad">
+        <input class="form-control form-control-lg mt-5" type="text" placeholder="Supermercado" id="inputLarge" name="supermercado">
+        <button type="submit" class="btn btn-primary mt-5">AGREGAR</button>
+    </div>
+    </div>
+
+        </div>
+        <div class="col-6">
+</form>
+
+<table class = "table table-hover   ">
+    <thead >
+        <tr class="table-success" >
+            <td>NOMBRE</td>
+            <td>CANTIDAD</td>
+            <td>SUPERMERCADO</td>
+            <td>OPCIONES</td>
+        </tr>
+        <tbody  >
+            {% for producto in productos %}
+            <tr >
+                <td class = "table-warning" >
+                    {{ producto.1 }}
+                </td>
+                <td class = "table-danger" >
+                    {{ producto.2 }}
+                </td>
+                <td class="table-primary">
+                    {{ producto.3 }}
+                </td>
+                <td class="table-secondary">
+                    
+                    <div class="container text-center  ">
+                        <div class="row">
+                            <div class="col ">
+                    <a href="/editar/{{ producto.0 }}"class="btn btn-outline-warning  btn-sm" >EDITAR</a>
+                    <a href="/eliminar/{{ producto.0 }}" class="btn btn-outline-danger  btn-sm">ELIMINAR</a>
+                        </div>
+                </div>
+            </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </thead>
+</table>
+</div>
+
+
+
+
+{% endblock %}
